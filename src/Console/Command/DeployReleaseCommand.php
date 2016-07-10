@@ -39,6 +39,7 @@ class DeployReleaseCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $parameters = new ParameterBag();
+        $parameters->set('working_directory', $input->getOption('project-dir'));
         $parameters->set('configuration.file', $input->getOption('project-dir').DIRECTORY_SEPARATOR.'accompli.json');
         $parameters->set('console.output_interface', $output);
 

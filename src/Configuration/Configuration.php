@@ -2,6 +2,8 @@
 
 namespace Accompli\Configuration;
 
+use Accompli\CredentialStorage\CredentialStorageInterface;
+use Accompli\CredentialStorage\CredentialStorageReference;
 use Accompli\Deployment\Host;
 use Accompli\Exception\JSONValidationException;
 use InvalidArgumentException;
@@ -14,7 +16,7 @@ use UnexpectedValueException;
 /**
  * Configuration.
  *
- * @author  Niels Nijens <nijens.niels@gmail.com>
+ * @author Niels Nijens <nijens.niels@gmail.com>
  */
 class Configuration implements ConfigurationInterface
 {
@@ -93,6 +95,20 @@ class Configuration implements ConfigurationInterface
         }
 
         $this->processEventSubscribers();
+    }
+
+    /**
+     *
+     * @param CredentialStorageInterface $credentialStorage
+     */
+    public function setCredentialReferences(CredentialStorageInterface $credentialStorage)
+    {
+        array_walk_recursive($this->configuration, function (&$value) use ($credentialStorage) {
+            $matches = array();
+            if (preg_match('#^~credential:(.*)~$#', $value, $matches) === 1) {
+                $value = new CredentialStorageReference($credentialStorage, $matches[0]);
+            }
+        });
     }
 
     /**

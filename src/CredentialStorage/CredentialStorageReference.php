@@ -10,13 +10,6 @@ namespace Accompli\CredentialStorage;
 class CredentialStorageReference
 {
     /**
-     * The key reference within the credential storage.
-     *
-     * @var string
-     */
-    private $key;
-
-    /**
      * The credential storage instance.
      *
      * @var CredentialStorageInterface
@@ -24,15 +17,22 @@ class CredentialStorageReference
     private $storage;
 
     /**
+     * The key reference within the credential storage.
+     *
+     * @var string
+     */
+    private $key;
+
+    /**
      * Constructs a new CredentialStorageReference instance.
      *
-     * @param string                     $key
      * @param CredentialStorageInterface $storage
+     * @param string                     $key
      */
-    public function __construct($key, CredentialStorageInterface $storage)
+    public function __construct(CredentialStorageInterface $storage, $key)
     {
-        $this->key = $key;
         $this->storage = $storage;
+        $this->key = $key;
     }
 
     /**

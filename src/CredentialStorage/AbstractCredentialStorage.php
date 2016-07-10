@@ -9,7 +9,24 @@ namespace Accompli\CredentialStorage;
  */
 abstract class AbstractCredentialStorage implements CredentialStorageInterface
 {
+    /**
+     * The cipher used to encrypt and decrypt credentials.
+     */
     const CIPHER = 'aes-256-gcm';
+
+    /**
+     * The working directory.
+     *
+     * @var string
+     */
+    protected $workingDirectory;
+
+    /**
+     * The array with keys and their encrypted values.
+     *
+     * @var array
+     */
+    protected $encryptedStorage = array();
 
     /**
      * The encryption secret.
@@ -19,11 +36,14 @@ abstract class AbstractCredentialStorage implements CredentialStorageInterface
     private static $secret;
 
     /**
-     * The array with keys and their encrypted values.
+     * Constructs a new AbstractCredentialStorage instance.
      *
-     * @var array
+     * @param string $workingDirectory
      */
-    protected $encryptedStorage = array();
+    public function __construct($workingDirectory)
+    {
+        $this->workingDirectory = $workingDirectory;
+    }
 
     /**
      * {@inheritdoc}

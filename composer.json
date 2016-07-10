@@ -19,6 +19,7 @@
     },
     "require": {
         "php": "^5.5 || ^7.0",
+        "ext-openssl": "*",
         "accompli/chrono": "^0.3.0",
         "composer/semver": "^1.2",
         "gisostallenberg/file-permission-calculator": "^1.0",
