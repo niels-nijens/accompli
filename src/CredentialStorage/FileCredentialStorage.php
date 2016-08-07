@@ -10,11 +10,11 @@ namespace Accompli\CredentialStorage;
 class FileCredentialStorage extends AbstractCredentialStorage
 {
     /**
-     *
+     * {@inheritdoc}
      */
     public function load()
     {
-        $file = $this->workingDirectory.DIRECTORY_SEPARATOR.'accompli.credentials.json';
+        $file = $this->workingDirectory.'/accompli.credentials.json';
         if (file_exists($file) === false) {
             return;
         }
